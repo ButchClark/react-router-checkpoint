@@ -13,7 +13,7 @@ const BASE_URL = 'http://localhost:8082'
 export const userLogin = ({email, password}) => {
   return async (dispatch) => {
     try {
-      console.log('actions.userLogin() - executing now...')
+      console.log(`actions.userLogin() - email: ${email}, password: ${password} `)
       dispatch({type: USER_LOGIN_PENDING})
       let response = await fetch(`${BASE_URL}/api/login`, {
         method: "POST",

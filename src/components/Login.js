@@ -3,22 +3,32 @@ import {Alert, Button, Col, Container, Form, FormGroup, Input, Label, Row} from 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {userLogin} from '../actions/auth.actions'
+import history from '../history'
 
 class Login extends Component {
     state = {
         email: '',
         password: ''
     }
+
+    constructor({history, userLogin}){
+        super({history,userLogin})
+        this.userLogin= userLogin
+        this.history = history
+    }
+
     logInUser = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
         console.log("> Login.logInUser()- e:")
         this.setState({
             email: e.target.email.value,
             password: e.target.password.value
         })
-        const resp = userLogin(this.state)
-        console.log(`Response from userLogin(): ${resp}`)
-        console.dir(resp)
+        this.userLogin(this.state)
+            .then(()=>{
+                console.log("*** Pushing /profile to History")
+                this.history.push("/profile")
+            })
     }
 
     render() {

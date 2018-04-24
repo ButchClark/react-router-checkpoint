@@ -9,18 +9,21 @@ import store from './store';
 import 'bootswatch/dist/materia/bootstrap.min.css'
 import './index.css';
 import UserProfile from "./components/UserProfile";
+import history from './history'
 
 const storeInstance = store();
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter history={history}>
         <Provider store={storeInstance}>
-            <Switch>
-                <Route exact path="/" component={App}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/signup" component={Signup}/>
-                <Route path="/profile" component={UserProfile}/>
-            </Switch>
+                <Switch>
+                    <Route exact path="/" component={App}/>
+                    // if state.user exists, route to /profile
+                    // else route to /login
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={Signup}/>
+                    <Route path="/profile" component={UserProfile}/>
+                </Switch>
         </Provider>
     </BrowserRouter>,
     document.getElementById('root')
